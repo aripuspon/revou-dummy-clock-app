@@ -1,0 +1,481 @@
+/* =========================================================
+   RevoU Dummy Clock App — style.css
+   Light/dark theming via CSS custom properties.
+   Dark mode is activated by adding class "theme-dark" on <html>.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. CSS Custom Properties (design tokens)
+   --------------------------------------------------------- */
+:root {
+  /* Light theme (default) */
+  --color-bg:           #f5f7fa;
+  --color-surface:      #ffffff;
+  --color-surface-alt:  #eef1f5;
+  --color-border:       #d0d7de;
+  --color-text:         #1c2128;
+  --color-text-muted:   #656d76;
+  --color-primary:      #0969da;
+  --color-primary-hover:#0550ae;
+  --color-danger:       #cf222e;
+  --color-success:      #1a7f37;
+  --color-warning-bg:   #fff8c5;
+  --color-warning-text: #7d4e00;
+  --color-completed:    #656d76;
+  --color-shadow:       rgba(31, 35, 40, 0.12);
+
+  /* Typography */
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base:  1rem;
+  --font-size-sm:    0.875rem;
+  --font-size-lg:    1.25rem;
+  --font-size-xl:    2rem;
+  --font-size-xxl:   3rem;
+  --line-height:     1.5;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Transitions */
+  --transition: 200ms ease;
+}
+
+/* Dark theme overrides */
+html.theme-dark {
+  --color-bg:           #0d1117;
+  --color-surface:      #161b22;
+  --color-surface-alt:  #21262d;
+  --color-border:       #30363d;
+  --color-text:         #e6edf3;
+  --color-text-muted:   #8b949e;
+  --color-primary:      #58a6ff;
+  --color-primary-hover:#79c0ff;
+  --color-danger:       #f85149;
+  --color-success:      #3fb950;
+  --color-warning-bg:   #2d2a1e;
+  --color-warning-text: #e3b341;
+  --color-completed:    #8b949e;
+  --color-shadow:       rgba(0, 0, 0, 0.4);
+}
+
+/* ---------------------------------------------------------
+   2. Reset / Base
+   --------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--color-border);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type="text"],
+input[type="url"] {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.2);
+}
+
+ul {
+  list-style: none;
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+/* ---------------------------------------------------------
+   3. Layout
+   --------------------------------------------------------- */
+.app-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 4px var(--color-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+/* Each section card */
+.app-main > section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+/* Clock spans full width */
+#clock-section {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+/* Timer spans full width */
+#timer-section {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   4. Clock Section
+   --------------------------------------------------------- */
+#clock-time {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+#clock-date {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+/* ---------------------------------------------------------
+   5. Greeting Section
+   --------------------------------------------------------- */
+#greeting-text {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+#name-form {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#name-form label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+#name-input {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* ---------------------------------------------------------
+   6. Timer Section
+   --------------------------------------------------------- */
+#timer-display {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.timer-controls {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#timer-alert {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+#timer-alert[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   7. To-Do List Section
+   --------------------------------------------------------- */
+#todo-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+#todo-form label {
+  display: none; /* visually hidden, present for accessibility */
+}
+
+#todo-input {
+  flex: 1;
+  min-width: 150px;
+}
+
+#todo-error {
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+}
+
+#todo-error[hidden] {
+  display: none;
+}
+
+#todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Individual task items — injected by TodoModule.render() */
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-alt);
+}
+
+.todo-item.completed .todo-name {
+  text-decoration: line-through;
+  color: var(--color-completed);
+}
+
+.todo-name {
+  flex: 1;
+  font-size: var(--font-size-base);
+  word-break: break-word;
+}
+
+.todo-item-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+/* Inline edit input within a task row */
+.todo-edit-input {
+  flex: 1;
+  font-size: var(--font-size-sm);
+}
+
+.todo-edit-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  width: 100%;
+}
+
+.todo-edit-error[hidden] {
+  display: none;
+}
+
+/* ---------------------------------------------------------
+   8. Quick Links Section
+   --------------------------------------------------------- */
+#links-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-field label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+#link-label-error,
+#link-url-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+}
+
+#link-label-error[hidden],
+#link-url-error[hidden] {
+  display: none;
+}
+
+#links-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Individual link items — injected by QuickLinksModule.render() */
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.link-btn {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.link-btn:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.link-delete-btn {
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+/* ---------------------------------------------------------
+   9. Theme Toggle
+   --------------------------------------------------------- */
+#theme-toggle {
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-4);
+}
+
+#theme-toggle[aria-pressed="true"] {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------
+   10. Storage Unavailability Banner
+   --------------------------------------------------------- */
+.storage-notice {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border-bottom: 1px solid currentColor;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.storage-notice button {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   11. Responsive
+   --------------------------------------------------------- */
+@media (max-width: 600px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+
+  #clock-section,
+  #timer-section {
+    grid-column: 1;
+  }
+
+  #clock-time {
+    font-size: 2.5rem;
+  }
+
+  #timer-display {
+    font-size: 2.5rem;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "revou-dummy-clock-app",
+  "version": "1.0.0",
+  "description": "Zero-dependency browser-based productivity SPA with clock, greeting, timer, to-do list, quick links, and light/dark mode.",
+  "private": true,
+  "scripts": {
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "fast-check": "3.21.0",
+    "jest": "29.7.0",
+    "jest-environment-node": "29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "moduleFileExtensions": [
+      "js"
+    ]
+  }
+}
