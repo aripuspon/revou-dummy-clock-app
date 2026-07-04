@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RevoU Dummy Clock App</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- ThemeModule is applied FIRST to prevent flash of default theme -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('rda_theme');
+        if (saved === 'dark') document.documentElement.classList.add('theme-dark');
+      } catch (e) { /* storage unavailable — stay light */ }
+    })();
+  </script>
+
+  <header class="app-header">
+    <!-- Theme Toggle -->
+    <section id="theme-section" aria-label="Theme toggle">
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="Toggle dark mode"
+      >🌙 Dark Mode</button>
+    </section>
+  </header>
+
+  <main class="app-main">
+
+    <!-- Clock -->
+    <section id="clock-section" aria-label="Clock">
+      <div id="clock-time" aria-live="polite" aria-label="Current time">--:--:--</div>
+      <div id="clock-date" aria-live="polite" aria-label="Current date">--- --, ------- ----</div>
+    </section>
+
+    <!-- Greeting -->
+    <section id="greeting-section" aria-label="Greeting">
+      <p id="greeting-text" aria-live="polite">Hello!</p>
+      <form id="name-form" aria-label="Set your name" novalidate>
+        <label for="name-input">Your name:</label>
+        <input
+          id="name-input"
+          type="text"
+          maxlength="50"
+          placeholder="Enter your name"
+          autocomplete="off"
+        />
+        <button type="submit">Save</button>
+      </form>
+    </section>
+
+    <!-- Focus Timer -->
+    <section id="timer-section" aria-label="Focus timer">
+      <div id="timer-display" aria-live="polite" aria-label="Timer display">25:00</div>
+      <div id="timer-alert" role="alert" hidden>
+        <p>Time's up! Great work.</p>
+        <button type="button" id="timer-alert-close" aria-label="Dismiss timer alert">Dismiss</button>
+      </div>
+      <div class="timer-controls">
+        <button id="timer-start" type="button" aria-label="Start timer">Start</button>
+        <button id="timer-stop"  type="button" aria-label="Stop timer">Stop</button>
+        <button id="timer-reset" type="button" aria-label="Reset timer">Reset</button>
+      </div>
+    </section>
+
+    <!-- To-Do List -->
+    <section id="todo-section" aria-label="To-do list">
+      <h2>To-Do List</h2>
+      <form id="todo-form" aria-label="Add task" novalidate>
+        <label for="todo-input">New task:</label>
+        <input
+          id="todo-input"
+          type="text"
+          maxlength="100"
+          placeholder="Enter a task"
+          autocomplete="off"
+          aria-describedby="todo-error"
+        />
+        <button type="submit">Add</button>
+        <span id="todo-error" role="alert" hidden></span>
+      </form>
+      <ul id="todo-list" aria-label="Task list"></ul>
+    </section>
+
+    <!-- Quick Links -->
+    <section id="links-section" aria-label="Quick links">
+      <h2>Quick Links</h2>
+      <form id="links-form" aria-label="Add quick link" novalidate>
+        <div class="form-field">
+          <label for="link-label-input">Label:</label>
+          <input
+            id="link-label-input"
+            type="text"
+            placeholder="Link label"
+            autocomplete="off"
+            aria-describedby="link-label-error"
+          />
+          <span id="link-label-error" role="alert" hidden></span>
+        </div>
+        <div class="form-field">
+          <label for="link-url-input">URL:</label>
+          <input
+            id="link-url-input"
+            type="url"
+            placeholder="https://example.com"
+            autocomplete="off"
+            aria-describedby="link-url-error"
+          />
+          <span id="link-url-error" role="alert" hidden></span>
+        </div>
+        <button type="submit">Add Link</button>
+      </form>
+      <div id="links-panel" aria-label="Saved quick links"></div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
